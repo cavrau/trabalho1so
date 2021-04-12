@@ -1,0 +1,49 @@
+Voluntario 5 doa roupa nova: 301
+Voluntario 12 removeu roupa: 301
+Voluntario 5 doa roupa nova: 302
+Voluntario 5 removeu roupa: 302
+Voluntario 5 doa roupa nova: 303
+Voluntario 13 removeu roupa: 303
+Voluntario 21 doa roupa nova: 304
+Voluntario 21 doa roupa nova: 305
+Voluntario 21 removeu roupa: 305
+Voluntario 25 removeu roupa: 305
+Voluntario 23 doa roupa nova: 306
+Voluntario 23 removeu roupa: 306
+Voluntario 34 doa roupa nova: 307
+Voluntario 34 doa roupa nova: 308
+Voluntario 34 doa roupa nova: 309
+Voluntario 34 removeu roupa: 309
+Voluntario 46 removeu roupa: 309
+Voluntario 3 doa roupa nova: 310
+Voluntario 50 doa roupa nova: 311
+Voluntario 53 doa roupa nova: 312
+Voluntario 53 doa roupa nova: 313
+Voluntario 53 removeu roupa: 310
+Voluntario 42 removeu roupa: 311
+Voluntario 60 removeu roupa: 313
+Voluntario 62 removeu roupa: 313
+Voluntario 17 doa roupa nova: 314
+Voluntario 56 removeu roupa: 314
+Cliente 15 doa roupa : 315
+Cliente 15 doa roupa : 316
+Cliente 15 doa roupa : 317
+Cliente 15 doa roupa : 318
+Cliente 15 doa roupa : 319
+Cliente 15 doa roupa : 320
+Cliente 15 doa roupa : 321
+Cliente 15 doa roupa : 322
+Cliente 15 doa roupa : 323
+Cliente 15 doa roupa : 324
+Cliente 15 doa roupa : 325
+Cliente 15 doa roupa : 326
+Cliente 15 doa roupa : 327
+Cliente 15 doa roupa : 328
+Cliente 15 doa roupa : 329
+Cliente 15 doa roupa : 330
+Cliente 15 doa roupa : 331
+Cliente 15 doa roupa : 332
+Cliente 15 doa roupa : 333
+Cliente 15 doa roupa : 334
+Cliente 15 doa roupa : 335
+Cliente 15 doa roupa : 336

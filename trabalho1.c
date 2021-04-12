@@ -18,7 +18,6 @@ typedef struct Roupa
 } Roupa;
 
 typedef struct LinkedList{
-    int tamanho;
     Roupa *head;
     Roupa *tail;
 }LinkedList;
@@ -44,17 +43,31 @@ LinkedList roupas_reparo = {0 , NULL};
 pthread_mutex_t mutex_reparo;
 
 void append_to_list(LinkedList * list, Roupa roupa){
-    if (!list->head){
-        printf("no head \n");
+    if(&roupa == list->tail){
+        return;
+    }
+    else if (!list->head){
         list->head = &roupa;
-        list->tamanho = 0;
         list->tail = &roupa;
     } else {
         list->tail->next = &roupa;
         list->tail = list->tail->next;
     }
-    list->tamanho +=1;
 }
+
+int get_count(LinkedList* list) 
+{ 
+
+    int count = 0;
+    Roupa* current = list->head;
+    while (current != NULL) 
+    { 
+        count++; 
+        current = current->next; 
+    } 
+    return count; 
+} 
+  
 
 Roupa retrive_from_position(LinkedList * list, int position){
     int i = 0;
@@ -65,30 +78,29 @@ Roupa retrive_from_position(LinkedList * list, int position){
         Roupa *old_head = list->head;
         if(old_head->next){
             list->head = old_head->next;
-            list->tamanho -= 1;
         } else{
             list->head = NULL;
-            list->tamanho = 0;
+            list->tail = NULL;
         }
         old_head->next = NULL;
+
         return (*old_head);
-    }else if(position == list->tamanho-1){
+    }else if(position == get_count(list)){
         for (i = 0; i < position-1; i++) {
             current = current->next;
         }
         list->tail = current;
         current->next = NULL;
         return (*current);
-    }
-    for (i = 0; i < position-1; i++) {
-        current = current->next;
-    }
+    }else{
+        for (i = 0; i < position-1; i++) {
+            current = current->next;
+        }
 
-    temp_node = current->next;
-    current->next = temp_node->next;
-    list->tamanho -= 1;
-    return (*temp_node);
-    
+        temp_node = current->next;
+        current->next = temp_node->next;
+        return (*temp_node);
+    }
 }
 
 
@@ -97,7 +109,7 @@ void *thread_cliente(void *threadid){
     long tid = (int) threadid;
     while (1)
     {
-        sleep((rand() % 5 )+3);
+        sleep((rand() % 3 ));
         int action = rand() % 2;
         switch (action)
         {
@@ -116,9 +128,9 @@ void *thread_cliente(void *threadid){
             case 1:
             {
                 pthread_mutex_lock(&mutex_venda);
-                if (roupas_venda.tamanho != 0) {
+                if (roupas_venda.head) {
                     Roupa roupa;
-                    roupa = retrive_from_position(&roupas_venda, rand() % roupas_venda.tamanho);
+                    roupa = retrive_from_position(&roupas_venda, rand() % get_count(&roupas_venda));
                     printf("Cliente %d compra roupa: %d\n", tid, roupa.codigo);
                 }
                 pthread_mutex_unlock(&mutex_venda);
@@ -135,7 +147,7 @@ void *thread_voluntario(void *threadid){
     long tid = (int) threadid;
     while (1)
     {
-        sleep((rand() % 5 )+3);
+        sleep((rand() % 3 ));
         int action = rand() % 3;
         switch (action)
         {
@@ -154,7 +166,7 @@ void *thread_voluntario(void *threadid){
             case 1:
             {
                 pthread_mutex_lock(&mutex_venda);
-                if (roupas_venda.tamanho != 0) {
+                if (roupas_venda.head) {
                     Roupa roupa;
                     roupa = retrive_from_position(&roupas_venda, 0);
                     printf("Voluntario %d removeu roupa: %d\n", tid, roupa.codigo);
@@ -164,14 +176,14 @@ void *thread_voluntario(void *threadid){
             case 2:
             {
                 pthread_mutex_lock(&mutex_reparo);
-                if (roupas_reparo.tamanho != 0) {
-                    Roupa * roupa;
-                    roupa = retrive_from_position(&roupas_reparo, rand() %roupas_reparo.tamanho);          
-                    pthread_mutex_lock(&mutex_venda);
+                pthread_mutex_lock(&mutex_venda);
+                if (roupas_reparo.head) {
+                    Roupa roupa;
+                    roupa = retrive_from_position(&roupas_reparo, rand() %get_count(&roupas_reparo));
                     append_to_list(&roupas_venda, roupa);
-                    printf("Voluntario %d moveu roupa para venda: %d\n", tid, roupa->codigo);
-                    pthread_mutex_unlock(&mutex_venda);
+                    printf("Voluntario %d moveu roupa para venda: %d\n", tid, roupa.codigo);
                 }
+                pthread_mutex_unlock(&mutex_venda);
                 pthread_mutex_unlock(&mutex_reparo);
             }
         }
