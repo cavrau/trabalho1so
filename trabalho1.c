@@ -36,10 +36,10 @@ Roupa generate_roupa(){
     return roupa;
 }
 
-LinkedList roupas_venda = {0 , NULL};
+LinkedList roupas_venda = {NULL , NULL};
 pthread_mutex_t mutex_venda; 
 
-LinkedList roupas_reparo = {0 , NULL};
+LinkedList roupas_reparo = {NULL , NULL};
 pthread_mutex_t mutex_reparo;
 
 void append_to_list(LinkedList * list, Roupa roupa){
