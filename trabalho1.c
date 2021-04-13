@@ -109,7 +109,7 @@ void *thread_cliente(void *threadid){
     long tid = (int) threadid;
     while (1)
     {
-        sleep((rand() % 3 ));
+        sleep((rand() % 5 ) + 1);
         int action = rand() % 2;
         switch (action)
         {
@@ -147,7 +147,7 @@ void *thread_voluntario(void *threadid){
     long tid = (int) threadid;
     while (1)
     {
-        sleep((rand() % 3 ));
+        sleep((rand() % 5 ) + 1);
         int action = rand() % 3;
         switch (action)
         {
